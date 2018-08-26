@@ -17,7 +17,8 @@ import com.google.android.gms.tasks.Task;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GoogleSignInClient mGoogleSignInClient;
-    private int RC_SIGN_IN;
+    private static final String TAG = "TESTE";
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        signInButton.setOnClickListener(this);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -46,8 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (account != null){
             Toast.makeText(this, "Existe um usuário logado", Toast.LENGTH_SHORT).show();
-        } else{
-            finish();
+            Log.i("GOOGLE SIGN IN ID:", account.getId());
+            Log.i("GOOGLE SIGN IN NAME:", account.getDisplayName());
+            Log.i("GOOGLE SIGN IN EMAIL:", account.getEmail());
+            Log.i("GOOGLE SIGN IN PHOTO:", account.getPhotoUrl().toString());
+            Intent intent = new Intent(this, PokeListActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -57,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
         }
     }
 
