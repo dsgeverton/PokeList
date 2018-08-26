@@ -14,6 +14,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.i("GOOGLE SIGN IN ID:", account.getId());
             Log.i("GOOGLE SIGN IN NAME:", account.getDisplayName());
             Log.i("GOOGLE SIGN IN EMAIL:", account.getEmail());
-            Log.i("GOOGLE SIGN IN PHOTO:", account.getPhotoUrl().toString());
+            Log.i("GOOGLE SIGN IN PHOTO:", Objects.requireNonNull(account.getPhotoUrl()).toString());
             Intent intent = new Intent(this, PokeListActivity.class);
             startActivity(intent);
         }
